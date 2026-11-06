@@ -1,0 +1,70 @@
+site_name: Ganga Tamang | Platform Engineering Wiki
+site_description: Platform engineering, Kubernetes, DevOps, GitOps, security, and operational debugging
+site_url: https://YOUR_GITHUB_USERNAME.github.io/my-wiki/
+repo_url: https://github.com/YOUR_GITHUB_USERNAME/my-wiki
+repo_name: YOUR_GITHUB_USERNAME/my-wiki
+edit_uri: edit/main/docs/
+nav:
+  - Home: index.md
+  - About: about.md
+  - Engineering Case Studies:
+      - Cilium Network Isolation: case-studies/cilium-isolation.md
+      - Gateway API Troubleshooting: case-studies/gateway-api.md
+      - CI/CD Modernization: case-studies/cicd-modernization.md
+      - Observability & Incident Response: case-studies/observability.md
+  - Troubleshooting:
+      - Kubernetes DNS: troubleshooting/kubernetes-dns.md
+      - Argo CD Reconciliation: troubleshooting/argocd.md
+      - Node DiskPressure: troubleshooting/disk-pressure.md
+  - Labs:
+      - Cilium Policy Lab: labs/cilium-policy.md
+      - Istio Ambient Egress: labs/ambient-egress.md
+      - EKS Networking & Storage: labs/eks-networking-storage.md
+  - Notes:
+      - Networking Commands: notes/networking-commands.md
+      - Kubernetes Operational Checklist: notes/kubernetes-checklist.md
+  - Projects & GitHub: projects.md
+  - Contact: contact.md
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.tracking
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+plugins:
+  - search
+extra:
+  social: []

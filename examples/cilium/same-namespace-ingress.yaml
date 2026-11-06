@@ -1,0 +1,10 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-same-namespace-ingress
+  namespace: policy-lab
+spec:
+  endpointSelector: {}
+  ingress:
+    - fromEndpoints:
+        - matchLabels: {}
