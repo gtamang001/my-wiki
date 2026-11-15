@@ -1,8 +1,8 @@
 site_name: Ganga Tamang | Platform Engineering Wiki
 site_description: Platform engineering, Kubernetes, DevOps, GitOps, security, and operational debugging
-site_url: https://YOUR_GITHUB_USERNAME.github.io/my-wiki/
-repo_url: https://github.com/YOUR_GITHUB_USERNAME/my-wiki
-repo_name: YOUR_GITHUB_USERNAME/my-wiki
+site_url: https://gtamang001.github.io/my-wiki/
+repo_url: https://github.com/gtamang001/my-wiki
+repo_name: gtamang001/my-wiki
 edit_uri: edit/main/docs/
 nav:
   - Home: index.md
@@ -23,6 +23,7 @@ nav:
   - Notes:
       - Networking Commands: notes/networking-commands.md
       - Kubernetes Operational Checklist: notes/kubernetes-checklist.md
+      - AWS Databases & Integration: aws-database-services.md
   - Projects & GitHub: projects.md
   - Contact: contact.md
 theme:
