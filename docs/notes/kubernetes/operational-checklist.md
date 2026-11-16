@@ -1,3 +1,10 @@
+---
+description: Read-only kubectl checklist for workloads, services, policies and cluster health.
+tags:
+  - Kubernetes
+  - Cheat Sheet
+---
+
 # Kubernetes Operational Checklist
 
 **Type:** Quick-reference troubleshooting checklist.

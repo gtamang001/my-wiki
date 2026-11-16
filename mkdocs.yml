@@ -1,42 +1,67 @@
 site_name: Ganga Tamang | Platform Engineering Wiki
 site_description: Platform engineering, Kubernetes, DevOps, GitOps, security, and operational debugging
+site_author: Ganga Tamang
 site_url: https://gtamang001.github.io/my-wiki/
 repo_url: https://github.com/gtamang001/my-wiki
 repo_name: gtamang001/my-wiki
 edit_uri: edit/main/docs/
+copyright: Copyright &copy; 2026 Ganga Tamang
+
 nav:
   - Home: index.md
-  - About: about.md
-  - Engineering Case Studies:
+  - About:
+      - About Me: about.md
+      - Resume: resume.md
+  - Case Studies:
+      - case-studies/index.md
       - Cilium Network Isolation: case-studies/cilium-isolation.md
       - Gateway API Troubleshooting: case-studies/gateway-api.md
       - CI/CD Modernization: case-studies/cicd-modernization.md
       - Observability & Incident Response: case-studies/observability.md
-  - Troubleshooting:
-      - Kubernetes DNS: troubleshooting/kubernetes-dns.md
-      - Argo CD Reconciliation: troubleshooting/argocd.md
-      - Node DiskPressure: troubleshooting/disk-pressure.md
-  - Labs:
-      - Cilium Policy Lab: labs/cilium-policy.md
-      - Istio Ambient Egress: labs/ambient-egress.md
-      - EKS Networking & Storage: labs/eks-networking-storage.md
-  - Notes:
-      - Networking Commands: notes/networking-commands.md
-      - Kubernetes Operational Checklist: notes/kubernetes-checklist.md
-      - AWS Databases & Integration: aws-database-services.md
-  - Projects & GitHub: projects.md
+  - Knowledge Base:
+      - Troubleshooting:
+          - troubleshooting/index.md
+          - Kubernetes DNS: troubleshooting/kubernetes-dns.md
+          - Argo CD Reconciliation: troubleshooting/argocd.md
+          - Node DiskPressure: troubleshooting/disk-pressure.md
+      - Labs:
+          - labs/index.md
+          - Cilium Policy Lab: labs/cilium-policy.md
+          - Istio Ambient Egress: labs/ambient-egress.md
+          - EKS Networking & Storage: labs/eks-networking-storage.md
+      - Notes:
+          - notes/index.md
+          - Kubernetes:
+              - Operational Checklist: notes/kubernetes/operational-checklist.md
+          - Networking:
+              - Networking Commands: notes/networking/commands.md
+          - AWS:
+              - Databases & Integration: notes/aws/databases-and-integration.md
+      - Browse by Tag: tags.md
+  - Blog:
+      - blog/index.md
+  - Projects: projects.md
   - Contact: contact.md
+
 theme:
   name: material
+  icon:
+    logo: material/server-network
+    repo: fontawesome/brands/github
   features:
     - navigation.tabs
     - navigation.sections
     - navigation.indexes
     - navigation.top
     - navigation.tracking
+    - navigation.footer
+    - toc.follow
     - search.suggest
     - search.highlight
+    - search.share
     - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
     - content.action.edit
   palette:
     - scheme: default
@@ -51,13 +76,27 @@ theme:
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
+
+extra_css:
+  - stylesheets/extra.css
+
 markdown_extensions:
+  - abbr
   - admonition
   - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
   - tables
   - toc:
       permalink: true
   - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
@@ -65,7 +104,38 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
 plugins:
   - search
+  - tags
+  - blog:
+      blog_toc: true
+      post_excerpt: required
+      categories_allowed:
+        - Learning Log
+        - Vlog
+        - Troubleshooting
+        - Exam Prep
+  - git-revision-date-localized:
+      enabled: !ENV [CI, false]  # needs committed history; on in GitHub Actions
+      type: date
+      enable_creation_date: true
+      fallback_to_build_date: true
+      exclude:
+        - blog/*
+  - redirects:
+      redirect_maps:
+        aws-database-services.md: notes/aws/databases-and-integration.md
+        notes/kubernetes-checklist.md: notes/kubernetes/operational-checklist.md
+        notes/networking-commands.md: notes/networking/commands.md
+
 extra:
-  social: []
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/gtamang001
+      name: GitHub
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/ganga-tamang-743660179/
+      name: LinkedIn

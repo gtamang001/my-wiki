@@ -1,3 +1,12 @@
+---
+description: EKS learning notes: VPC CNI pod networking and choosing between EBS, EFS and S3.
+tags:
+  - AWS
+  - EKS
+  - Networking
+  - Storage
+---
+
 # EKS Networking and Storage — Learning Notes
 
 **Type:** Learning lab and conceptual reference, not a claim of operating EKS in production.

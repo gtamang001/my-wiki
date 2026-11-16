@@ -1,3 +1,11 @@
+---
+description: AWS exam notes: RDS, purpose-built databases, load balancing, messaging, EventBridge and workflow services.
+tags:
+  - AWS
+  - Databases
+  - Exam Prep
+---
+
 # AWS Databases & Application Integration — Need to Knows
 
 Quick revision notes for the exam. Each section covers **what the service is**, **when to pick it**, and the **key facts** that tend to show up in questions.

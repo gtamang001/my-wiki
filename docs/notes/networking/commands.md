@@ -1,3 +1,10 @@
+---
+description: Essential networking commands and a layer-by-layer triage order for platform engineers.
+tags:
+  - Networking
+  - Cheat Sheet
+---
+
 # Networking Commands for Platform Engineers
 
 **Type:** Practical reference.

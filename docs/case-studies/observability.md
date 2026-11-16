@@ -1,3 +1,11 @@
+---
+description: A repeatable investigation pattern for incidents using Prometheus, Grafana, Loki and OpenSearch.
+tags:
+  - Observability
+  - Incident Response
+  - Kubernetes
+---
+
 # Observability and Incident Response
 
 **Type:** Production experience, generalized troubleshooting lessons.

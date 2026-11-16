@@ -1,3 +1,11 @@
+---
+description: Hands-on lab: allow same-namespace traffic and deny other ingress with a CiliumNetworkPolicy.
+tags:
+  - Kubernetes
+  - Cilium
+  - Security
+---
+
 # Lab: Namespace Isolation with Cilium
 
 **Type:** Learning lab. Run only on a disposable cluster with Cilium network policy enforcement enabled.

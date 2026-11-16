@@ -1,14 +1,39 @@
-# Projects and GitHub
+---
+description: Public examples and planned independent repositories.
+---
 
-This wiki is a public-safe summary of my engineering experience and hands-on learning. Sample projects are deliberately separate from employer-owned repositories.
+# Projects
 
-## Current public examples
+This is where my side projects live. Everything here is built independently, in my own time, on my own clusters, so it's all safe to share.
+
+## Featured projects
+
+<!-- Copy one card per finished project into the grid below, then delete this comment.
+
+<div class="grid cards" markdown>
+
+-   :material-github:{ .lg .middle } **Project name**
+
+    ---
+
+    One or two sentences: the problem it solves and what it demonstrates.
+
+    **Stack:** Kubernetes · Argo CD · Terraform
+
+    [:octicons-arrow-right-24: Repository](https://github.com/gtamang001/REPO) · [Write-up](case-studies/PAGE.md)
+
+</div>
+-->
+
+*A few projects are in the oven right now. They'll show up here once they're polished and properly tested.* :material-chef-hat:
+
+## What you can explore today
 
 - [Cilium namespace policy lab](labs/cilium-policy.md) — includes a small illustrative policy manifest in this repository.
 - [Gateway API troubleshooting case study](case-studies/gateway-api.md) — architecture, diagnostic steps and findings.
 - [EKS networking and storage notes](labs/eks-networking-storage.md) — ongoing cloud learning.
 
-## Planned independent repositories
+## On the workbench
 
 - Reusable GitHub Actions CI workflow example.
 - Argo CD app-of-apps reference lab.
@@ -16,6 +41,6 @@ This wiki is a public-safe summary of my engineering experience and hands-on lea
 - Terraform-based EKS practice environment.
 
 !!! note
-    Planned projects are ideas, not completed public repositories. Add working repository links only after independently implementing and testing them.
+    These are ideas in progress, not finished repositories (yet!). Links will appear here as each one ships.
 
-**GitHub profile:** Replace this sentence with your public GitHub URL.
+**GitHub profile:** [github.com/gtamang001](https://github.com/gtamang001)

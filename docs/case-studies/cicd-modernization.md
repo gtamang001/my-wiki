@@ -1,3 +1,12 @@
+---
+description: Standardizing CI/CD across 500+ repositories with reusable GitHub Actions workflows and Argo CD GitOps.
+tags:
+  - CI/CD
+  - GitHub Actions
+  - GitOps
+  - Argo CD
+---
+
 # Enterprise CI/CD Modernization
 
 **Type:** Production experience; generic patterns, no proprietary workflows.

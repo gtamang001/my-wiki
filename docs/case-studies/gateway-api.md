@@ -1,3 +1,12 @@
+---
+description: Why an accepted and programmed Gateway can still be unreachable, and how to debug each hop.
+tags:
+  - Kubernetes
+  - Gateway API
+  - Cilium
+  - Networking
+---
+
 # Troubleshooting Gateway API: Accepted Is Not Reachable
 
 **Type:** Evaluation / proof of concept; not a claim of a production Cilium Gateway rollout.

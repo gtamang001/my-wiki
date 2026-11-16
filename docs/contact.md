@@ -1,10 +1,16 @@
-# Contact
+---
+description: How to get in touch with Ganga Tamang about platform engineering, DevOps and SRE roles.
+---
 
-I am interested in hands-on Senior Platform Engineer, DevOps Engineer, and SRE opportunities, including NYC-area hybrid and suitable remote positions.
+# Say Hello
 
-- **LinkedIn:** Add your public LinkedIn profile URL here.
-- **GitHub:** Add your public GitHub profile URL here.
-- **Resume:** Add a link to your approved public resume here.
-- **Email:** Add a public contact address if desired.
+Thanks for stopping by! I'm currently open to hands-on **Senior Platform Engineer, DevOps Engineer and SRE** roles, NYC-area hybrid or remote. I'm also always happy to talk shop about Kubernetes, GitOps or that one bug you can't shake.
 
-For technical conversations, start with the [case studies](case-studies/cilium-isolation.md) or [troubleshooting notes](troubleshooting/kubernetes-dns.md).
+- :fontawesome-brands-linkedin: **LinkedIn:** [linkedin.com/in/ganga-tamang-743660179](https://www.linkedin.com/in/ganga-tamang-743660179/), the best way to reach me
+- :fontawesome-brands-github: **GitHub:** [github.com/gtamang001](https://github.com/gtamang001)
+- :material-file-account-outline: **Resume:** [View online](resume.md)
+<!-- TODO: add when ready
+- :material-email-outline: **Email:** you@example.com
+-->
+
+Want to see how I think before reaching out? The [case studies](case-studies/index.md) and [troubleshooting runbooks](troubleshooting/index.md) are a good place to start.

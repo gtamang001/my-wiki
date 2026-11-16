@@ -1,3 +1,11 @@
+---
+description: Diagnosing OutOfSync, Degraded and reverted Argo CD applications.
+tags:
+  - Argo CD
+  - GitOps
+  - Kubernetes
+---
+
 # Argo CD Reconciliation Troubleshooting
 
 **Type:** Operational troubleshooting reference.

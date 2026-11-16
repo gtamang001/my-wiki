@@ -1,3 +1,12 @@
+---
+description: Designing and rolling out namespace-group network isolation in shared Kubernetes clusters with Cilium.
+tags:
+  - Kubernetes
+  - Cilium
+  - Networking
+  - Security
+---
+
 # Kubernetes Network Isolation with Cilium
 
 **Type:** Production experience, illustrated with independently written examples.

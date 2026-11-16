@@ -1,3 +1,11 @@
+---
+description: Investigating Kubernetes node DiskPressure and evictions caused by unbounded logging.
+tags:
+  - Kubernetes
+  - Storage
+  - Observability
+---
+
 # Kubernetes Node DiskPressure Investigation
 
 **Type:** Generalized incident pattern based on operational debugging.

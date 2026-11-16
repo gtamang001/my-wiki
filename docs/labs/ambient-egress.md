@@ -1,3 +1,11 @@
+---
+description: Does Istio Ambient enrollment block unknown external domains? Lab notes on egress control.
+tags:
+  - Istio
+  - Networking
+  - Security
+---
+
 # Lab Notes: Istio Ambient Egress
 
 **Type:** Evaluation/POC and learning notes, not a claim of completed production rollout.

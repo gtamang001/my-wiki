@@ -1,3 +1,11 @@
+---
+description: Step-by-step Kubernetes DNS troubleshooting from inside a pod to CoreDNS.
+tags:
+  - Kubernetes
+  - DNS
+  - Networking
+---
+
 # Kubernetes DNS Troubleshooting
 
 **Type:** Troubleshooting reference and learning notes.
