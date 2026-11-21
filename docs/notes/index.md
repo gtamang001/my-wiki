@@ -16,4 +16,6 @@ Cheat sheets and study notes, grouped by subject. They're written for quick revi
 
 ## AWS
 
-- [Databases & application integration](aws/databases-and-integration.md): RDS, purpose-built databases, ELB, SNS/SQS, EventBridge, Step Functions and more.
+- [Database services](aws/databases.md): RDS, Aurora, RDS Proxy, Redshift, DynamoDB, DAX, ElastiCache, MemoryDB and the purpose-built databases.
+- [Application integration](aws/application-integration.md): Auto Scaling, ELB, API Gateway, SNS/SQS, Amazon MQ, EventBridge, SES and the workflow services.
+- [Data, analytics & ML](aws/data-analytics-ml.md): Kinesis, MSK, Glue, EMR, Lake Formation, Athena, QuickSight, SageMaker and the AI services.

@@ -1,101 +1,57 @@
 ---
-description: AWS exam notes: RDS, purpose-built databases, load balancing, messaging, EventBridge and workflow services.
+description: AWS exam notes on application integration, covering Auto Scaling, ELB, API Gateway, AppFlow, SNS, SQS, Amazon MQ, EventBridge, SES, Step Functions, SWF and MWAA.
 tags:
   - AWS
-  - Databases
+  - Application Integration
   - Exam Prep
 ---
 
-# AWS Databases & Application Integration — Need to Knows
+# AWS Application Integration Services
 
-Quick revision notes for the exam. Each section covers **what the service is**, **when to pick it**, and the **key facts** that tend to show up in questions.
+Quick revision notes for the Solutions Architect exam. These services connect, scale and decouple the parts of an application. The table below gives one line per service; the sections after it go deeper on the ones that show up most in questions.
+
+## At a glance
+
+| Service | One-liner |
+|---|---|
+| **EC2 Auto Scaling** | Adds or removes EC2 instances automatically to match demand and replaces unhealthy ones |
+| **Elastic Load Balancing** | Spreads incoming traffic across healthy targets in multiple AZs (ALB, NLB, GWLB) |
+| **API Gateway** | Managed front door to create, secure, throttle and monitor REST, HTTP and WebSocket APIs |
+| **AppFlow** | No-code data transfer between SaaS apps (Salesforce, SAP, Slack…) and AWS services |
+| **SNS** | Pub/sub **push** messaging. One message to a topic fans out to many subscribers |
+| **SQS** | Fully managed **queue** (pull). Decouples producers from consumers and buffers load |
+| **Amazon MQ** | Managed ActiveMQ / RabbitMQ broker for apps that use standard protocols (JMS, AMQP, MQTT) |
+| **EventBridge** | Serverless event bus that routes events from AWS, your apps and SaaS partners to targets |
+| **SES** | Send (and receive) transactional, marketing and bulk email |
+| **Step Functions** | Serverless visual workflows (state machines) that coordinate AWS services |
+| **SWF** | Older workflow service where you write the coordination logic in code |
+| **MWAA** | Managed Apache Airflow for Python DAG-based data pipelines |
 
 ---
 
-## 1. Amazon RDS (Relational Database Service)
+## Scaling & load balancing
 
-Use RDS for **relational (SQL) database** requirements when you don't want to manage the database server yourself.
+### EC2 Auto Scaling
 
-### Why it exists
+Automatically adds or removes EC2 instances in an **Auto Scaling group (ASG)** so you have the right capacity at the right cost.
 
-Running a database on EC2 means *you* handle OS and DB patching, backups, upgrades, replication and failover. RDS takes over that routine administration so you only manage the schema, queries and settings.
+- Settings: **minimum / desired / maximum** capacity; instances are built from a **launch template**.
+- Spans **multiple AZs** and rebalances across them for high availability.
+- **Health checks**: EC2 status checks by default; turn on **ELB health checks** so instances failing the app check are replaced too.
+- **Scaling policies**:
 
-### What you get
-
-| Feature | Details |
-|---|---|
-| **Routine operations** | Automated patching, minor version upgrades, maintenance windows |
-| **High availability** | Multi-AZ deployments with automatic failover |
-| **Scalability** | Scale instance size (vertical), add read replicas (horizontal reads), storage auto-scaling |
-| **Backup & restore** | Automated backups (retention 1–35 days) with **point-in-time restore**; manual snapshots kept until you delete them |
-| **Monitoring** | CloudWatch metrics, Enhanced Monitoring (OS-level), Performance Insights |
-| **Security** | Runs in your VPC, security groups, encryption at rest (KMS), TLS in transit, IAM database authentication |
-
-### Supported engines
-
-MySQL, PostgreSQL, MariaDB, Oracle, Microsoft SQL Server, IBM Db2, and **Amazon Aurora** (MySQL and PostgreSQL compatible).
-
-### Instance classes
-
-| Class | Family | Use for |
+| Policy | How it works | Use |
 |---|---|---|
-| **General purpose** | `db.m*` | Balanced CPU and memory; most workloads |
-| **Memory optimized** | `db.r*`, `db.x*` | Memory-heavy workloads, large caches and datasets |
-| **Burstable** | `db.t*` | Dev/test, small or spiky workloads (CPU credits) |
+| **Target tracking** | Keep a metric at a target, e.g. average CPU at 50% | Simplest, the usual answer |
+| **Step / simple** | Add/remove N instances when a CloudWatch alarm fires | Finer control over big jumps |
+| **Scheduled** | Change capacity at set times | Known patterns, e.g. 9 am weekday ramp-up |
+| **Predictive** | ML forecasts load from history and scales ahead of time | Regular daily/weekly cycles |
 
-Storage options: **General Purpose SSD (gp2/gp3)** and **Provisioned IOPS SSD (io1/io2)** for I/O-intensive workloads.
-
-### Deployment types
-
-| Deployment | How it works | Standby readable? | Purpose |
-|---|---|---|---|
-| **Single-AZ** | One DB instance in one AZ | — | Dev/test, lowest cost, no automatic failover |
-| **Multi-AZ DB instance** | Primary + **one standby** in another AZ, **synchronous** replication | ❌ No | High availability / disaster recovery; automatic failover (~1–2 min), same DNS endpoint |
-| **Multi-AZ DB cluster** | One writer + **two readable standbys** across 3 AZs | ✅ Yes | HA **and** read scaling; faster failover (typically < 35 s); MySQL & PostgreSQL only |
-
-### Read replicas (separate from Multi-AZ)
-
-- **Asynchronous** replication → used for **read scaling**, not HA.
-- Up to **15** read replicas (MySQL, MariaDB, PostgreSQL; Aurora also 15).
-- Can be in the same AZ, a different AZ, or **another Region** (cross-Region DR / lower latency for global readers).
-- Each replica has its **own endpoint**; the application must send reads to it.
-- A replica can be **promoted** to a standalone database.
-
-!!! tip "Exam tip: Multi-AZ vs Read Replica"
-    - **Multi-AZ** = availability (synchronous, failover). The classic standby does *not* serve reads.
-    - **Read replica** = performance (asynchronous, serves reads).
-    - "Improve read performance" → read replicas. "Survive an AZ failure" → Multi-AZ.
-
-### Other RDS points worth knowing
-
-- **Encryption** must be enabled **at creation**. To encrypt an existing DB: snapshot → copy the snapshot with encryption → restore.
-- **RDS Proxy** pools DB connections. Useful with Lambda or apps that open many short-lived connections; also speeds up failover.
-- **RDS Custom** (Oracle, SQL Server) gives you OS and DB access for apps that need custom settings.
-- **Amazon Aurora**: storage keeps 6 copies across 3 AZs and grows automatically up to 128 TiB; up to 15 low-latency replicas; **Aurora Serverless v2** for variable workloads; **Aurora Global Database** for cross-Region (typically < 1 s lag).
-
-### Other AWS database services (pick by use case)
-
-| Need | Service |
-|---|---|
-| Relational / SQL, OLTP | RDS, Aurora |
-| Key-value / NoSQL, single-digit ms at any scale, serverless | **DynamoDB** (DAX for microsecond caching) |
-| In-memory cache, session store | **ElastiCache** (Redis OSS / Valkey / Memcached), **MemoryDB** (durable Redis-compatible) |
-| Data warehouse, analytics (OLAP) | **Redshift** |
-| Document (MongoDB compatible) | **DocumentDB** |
-| Graph (relationships, social networks, fraud) | **Neptune** |
-| Wide-column (Apache Cassandra compatible) | **Keyspaces** |
-| Time series (IoT, metrics) | **Timestream** |
-
----
-
-## 2. Scaling & Load Balancing
-
-### Auto Scaling (EC2 Auto Scaling)
-
-- Automatically adds or removes EC2 instances in an **Auto Scaling group** to match demand.
-- Settings: **minimum / desired / maximum** capacity; uses a launch template.
-- Scaling policies: **target tracking** (e.g. keep CPU at 50%), **step/simple**, **scheduled**, **predictive**.
-- Replaces unhealthy instances automatically; works with ELB health checks.
+- **Cooldown / instance warm-up** stops the group from scaling again before new instances are ready.
+- **Lifecycle hooks** pause instances on launch or terminate to run custom actions (install software, drain logs).
+- **Warm pools** keep pre-initialised instances ready to cut scale-out time.
+- **Instance refresh** rolls out a new launch template across the group.
+- Common pattern: scale workers on **SQS queue depth** (`ApproximateNumberOfMessagesVisible`, or backlog per instance).
 
 ### Elastic Load Balancing (ELB)
 
@@ -111,16 +67,27 @@ Spreads incoming traffic across multiple targets (EC2, containers, IPs, Lambda) 
 !!! note "Elastic IPs with NLB"
     An NLB can take **one Elastic IP per AZ**, so clients get a **fixed public IP** (handy for firewall allow-lists). ALBs only give you a DNS name. Their IPs change.
 
+**Features worth knowing**
+
+- **Health checks** send traffic only to healthy targets.
+- **SSL/TLS termination** with certificates from **ACM**; **SNI** lets one ALB/NLB serve many certificates/domains.
+- **Sticky sessions** keep a user on the same target (cookie-based on ALB).
+- **Cross-zone load balancing** spreads traffic evenly across all targets in all AZs (on by default for ALB, off by default for NLB).
+- **Deregistration delay** (connection draining, default 300 s) lets in-flight requests finish before a target is removed.
+- The ALB passes the client IP in the **`X-Forwarded-For`** header.
+
 ---
 
-## 3. Application Integration Services
+## APIs & SaaS data flows
 
 ### Amazon API Gateway
 
 - Fully managed service to **create, publish, secure and monitor APIs** at any scale.
-- API types: **REST API**, **HTTP API** (cheaper, simpler), **WebSocket API** (two-way, real-time).
-- Features: throttling/rate limits, caching, request validation, API keys & usage plans, stages (dev/prod).
-- Auth: IAM, Amazon Cognito, Lambda authorizers.
+- API types: **REST API** (most features), **HTTP API** (cheaper, simpler, lower latency), **WebSocket API** (two-way, real-time, e.g. chat apps).
+- **Endpoint types**: **Edge-optimised** (through CloudFront, for global clients), **Regional** (clients in the same Region), **Private** (only from your VPC through an interface endpoint).
+- Features: throttling/rate limits, **caching** (default TTL 300 s), request validation, **API keys & usage plans** (per-customer quotas), **stages** (dev/prod) with stage variables, canary releases.
+- Auth: **IAM**, **Amazon Cognito user pools**, **Lambda authorizers** (custom tokens). Add **AWS WAF** for protection.
+- Limits to remember: **29 s** default integration timeout, **10 MB** payload, account throttle of **10,000 requests/s** per Region (burst 5,000) by default.
 - Classic serverless pattern (CRUD demo): **API Gateway → Lambda → DynamoDB**.
 
 ### Amazon AppFlow
@@ -129,22 +96,38 @@ Spreads incoming traffic across multiple targets (EC2, containers, IPs, Lambda) 
 - Runs on demand, on a schedule, or on an event; can filter, map and validate data.
 - Data encrypted in transit and at rest; can use **AWS PrivateLink** so traffic stays off the public internet.
 
+!!! tip "Exam tip"
+    "Get Salesforce/SaaS data into S3 or Redshift without writing code" → **AppFlow**.
+
+---
+
+## Messaging & events
+
 ### Amazon SNS & Amazon SQS
 
 | | **SNS** (Simple Notification Service) | **SQS** (Simple Queue Service) |
 |---|---|---|
 | Model | **Pub/Sub**, **push**. A publisher sends to a **topic**, and every subscriber gets a copy | **Queue**, **pull**. Consumers poll and process messages |
-| Delivery | To SQS, Lambda, HTTP(S), email, SMS, mobile push | One consumer processes each message |
+| Delivery | To SQS, Lambda, HTTP(S), email, SMS, mobile push, Firehose | One consumer processes each message |
 | Persistence | No storage. Messages are delivered and gone | Messages kept until deleted (default 4 days, **max 14 days**) |
 | Use | Fan-out, notifications, alerts | Decouple producers from consumers, buffer load, smooth spikes |
+
+**SNS key facts**
+
+- **Standard topics** (very high throughput) and **FIFO topics** (strict ordering, deduplication; deliver to SQS queues).
+- **Message filtering**: a subscription policy means each subscriber gets only the messages it cares about.
+- Encryption with KMS; access policies let other accounts or services (e.g. S3 events) publish.
 
 **SQS key facts**
 
 - **Standard queue**: nearly unlimited throughput, **at-least-once** delivery, best-effort ordering.
-- **FIFO queue**: **strict ordering**, **exactly-once** processing, lower throughput (300 msg/s, 3,000 with batching; higher in high-throughput mode).
-- **Visibility timeout** (default 30 s): hides a message while a consumer works on it.
-- **Dead-letter queue (DLQ)**: collects messages that keep failing.
-- **Long polling** cuts down empty responses and cost.
+- **FIFO queue**: **strict ordering**, **exactly-once** processing, lower throughput (300 msg/s, 3,000 with batching; higher in high-throughput mode). Name must end in `.fifo`.
+- **Visibility timeout** (default 30 s, max 12 h): hides a message while a consumer works on it. If processing takes longer, the message reappears and may be processed twice.
+- **Dead-letter queue (DLQ)**: collects messages that keep failing (after `maxReceiveCount` attempts).
+- **Long polling** (wait up to 20 s) cuts down empty responses and cost.
+- **Delay queues** hold new messages back for up to 15 minutes.
+- Message size up to **1 MiB** (older material says 256 KB); for bigger payloads store them in S3 with the **SQS Extended Client Library**.
+- Scale consumers (EC2 ASG, ECS, Lambda) on **queue depth**.
 
 **Fan-out pattern (SNS + SQS)**: one event, several independent consumers.
 
@@ -162,6 +145,8 @@ Each queue gets its own copy of the message, so a slow or failed worker doesn't 
 - Managed message broker for **Apache ActiveMQ** and **RabbitMQ**.
 - Supports industry-standard protocols: **AMQP, MQTT, OpenWire, STOMP, JMS**. Apps written in different languages and frameworks can talk through a common protocol.
 - Best for **migrating existing on-prem apps** that already use a broker (lift and shift, no code rewrite).
+- HA: ActiveMQ **active/standby** across two AZs with shared storage; RabbitMQ **cluster** of 3 nodes across AZs.
+- Runs on broker instances, so it doesn't scale as far as SNS/SQS.
 - For **new cloud-native apps**, SNS + SQS is usually the better choice: simpler, serverless, and scales almost without limit.
 
 !!! tip "Exam tip"
@@ -183,6 +168,7 @@ Serverless **event bus** that connects applications using events. Producers and 
 - **Archive & Replay**: store events and replay them later for debugging or recovery.
 - **Schema Registry**: discovers and stores event structures and generates code bindings.
 - Built-in **retries** and dead-letter queues.
+- **Cross-account / cross-Region** event delivery to a central bus.
 
 !!! note "EventBridge vs SNS"
     Both route events to many targets. EventBridge offers **richer content-based filtering**, **SaaS sources**, schema registry and replay. SNS has **higher throughput / lower latency** and direct SMS, email and mobile push.
@@ -194,9 +180,12 @@ Serverless **event bus** that connects applications using events. Producers and 
 - Deliverability tools: **SPF, DKIM, DMARC**, reputation dashboard, dedicated IPs.
 - New accounts start in a **sandbox** (verified recipients only) until you request production access.
 
+!!! tip "Exam tip"
+    SNS can send a plain email notification to subscribers. For real application email (HTML, bulk, custom domains, bounce handling) → **SES**.
+
 ---
 
-## 4. Workflow Orchestration
+## Workflow orchestration
 
 ### AWS Step Functions
 
@@ -253,18 +242,23 @@ Other use cases: long-running **ETL jobs**, **automations that need manual appro
 
 | Scenario | Answer |
 |---|---|
-| Managed relational DB, minimal admin | RDS / Aurora |
-| Survive AZ failure for a DB | RDS Multi-AZ |
-| Scale database reads | Read replicas (or Multi-AZ DB cluster) |
+| Match EC2 capacity to demand | EC2 Auto Scaling (target tracking) |
+| Scale workers by backlog | Auto Scaling on SQS queue depth |
+| Fixed IP for a load balancer | NLB with Elastic IPs |
+| Path-based HTTP routing | ALB |
+| Route traffic through firewall appliances | Gateway LB |
+| Expose a REST/WebSocket API in front of Lambda | API Gateway |
+| Per-customer API quotas | API Gateway usage plans + API keys |
+| Sync SaaS data (Salesforce, etc.) to AWS without code | AppFlow |
 | Decouple components with a buffer | SQS |
 | One message to many subscribers | SNS (fan-out to SQS) |
 | Strict ordering, no duplicates | SQS FIFO |
+| Messages that keep failing | Dead-letter queue |
 | Migrate an app using ActiveMQ/RabbitMQ | Amazon MQ |
 | React to AWS/SaaS events, content-based routing | EventBridge |
 | Run tasks on a schedule (serverless) | EventBridge Scheduler |
-| Sync SaaS data (Salesforce, etc.) to AWS without code | AppFlow |
-| Expose a REST/WebSocket API in front of Lambda | API Gateway |
 | Send transactional / marketing email | SES |
 | Orchestrate multi-step workflow with retries & approvals | Step Functions |
-| Fixed IP for a load balancer | NLB with Elastic IPs |
-| Path-based HTTP routing | ALB |
+| High-volume, short-lived workflows | Step Functions Express |
+| Child workflows / external signals in code | SWF |
+| Existing Airflow DAGs | MWAA |
