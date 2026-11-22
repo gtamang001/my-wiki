@@ -36,9 +36,12 @@ nav:
           - Networking:
               - Networking Commands: notes/networking/commands.md
           - AWS:
-              - Databases: notes/aws/databases.md
-              - Application Integration: notes/aws/application-integration.md
-              - Data, Analytics & ML: notes/aws/data-analytics-ml.md
+              - Databases: notes/aws/database-services.md
+              - Application Integration: notes/aws/application-integrations-services.md
+              - Data, Analytics & ML: notes/aws/data-analytics-ml-services.md
+              - Security: notes/aws/security-services.md
+              - Management & Governance: notes/aws/management-governance-services.md
+              - Migration & Transfer: notes/aws/migration-services.md
       - Browse by Tag: tags.md
   - Blog:
       - blog/index.md
@@ -129,8 +132,11 @@ plugins:
         - blog/*
   - redirects:
       redirect_maps:
-        aws-database-services.md: notes/aws/databases.md
-        notes/aws/databases-and-integration.md: notes/aws/databases.md
+        aws-database-services.md: notes/aws/database-services.md
+        notes/aws/databases-and-integration.md: notes/aws/database-services.md
+        notes/aws/databases.md: notes/aws/database-services.md
+        notes/aws/application-integration.md: notes/aws/application-integrations-services.md
+        notes/aws/data-analytics-ml.md: notes/aws/data-analytics-ml-services.md
         notes/kubernetes-checklist.md: notes/kubernetes/operational-checklist.md
         notes/networking-commands.md: notes/networking/commands.md
 

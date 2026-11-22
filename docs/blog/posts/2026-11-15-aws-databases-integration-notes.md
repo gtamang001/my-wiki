@@ -24,4 +24,4 @@ Here's what's inside:
 - **Messaging and events**: SNS, SQS, Amazon MQ and EventBridge, including the SNS → SQS fan-out pattern.
 - **Workflow orchestration**: Step Functions vs SWF vs MWAA.
 
-:material-arrow-right: Read the full notes (snacks recommended): [Database services](../../notes/aws/databases.md) and [Application integration](../../notes/aws/application-integration.md)
+:material-arrow-right: Read the full notes (snacks recommended): [Database services](../../notes/aws/database-services.md) and [Application integration](../../notes/aws/application-integrations-services.md)
