@@ -36,10 +36,14 @@ nav:
           - Networking:
               - Networking Commands: notes/networking/commands.md
           - AWS:
+              - Compute: notes/aws/compute-services.md
+              - Storage: notes/aws/storage-services.md
+              - Networking: notes/aws/network-services.md
               - Databases: notes/aws/database-services.md
               - Application Integration: notes/aws/application-integrations-services.md
               - Data, Analytics & ML: notes/aws/data-analytics-ml-services.md
               - Security: notes/aws/security-services.md
+              - Designing for Security: notes/aws/designs-for-security.md
               - Management & Governance: notes/aws/management-governance-services.md
               - Migration & Transfer: notes/aws/migration-services.md
       - Browse by Tag: tags.md
