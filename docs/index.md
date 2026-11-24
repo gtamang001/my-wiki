@@ -11,9 +11,9 @@ hide:
 
 **Senior Platform Engineer · DevOps · Kubernetes · GitOps · DevSecOps**
 
-I build the platforms that let application teams ship without holding their breath. For 10+ years I've been the person people ping when a pod won't start, a pipeline turns red, or someone whispers *"I think it's the network…"* (spoiler: sometimes it really is DNS).
+Life is a journey between 1 and 0: birth makes you a 1, and the rest is figuring out what to do with it. I've spent 10+ years living in binary, building the platforms that let application teams ship without holding their breath, and long enough to know that writing things down helps future-me and, hopefully, you too :laughing:
 
-This site is part portfolio and part engineering notebook. I write things down here so future-me doesn't have to solve the same puzzle twice, and so you can see how I think.
+This site is part portfolio and part engineering notebook. So far I've explored the kingdoms of software development, DevOps, Kubernetes, GitOps and DevSecOps. I believe in "learn how to learn", so there are a few more kingdoms on my list. Make yourself at home.
 
 [About me](about.md){ .md-button .md-button--primary }
 [Resume](resume.md){ .md-button }
@@ -23,7 +23,7 @@ This site is part portfolio and part engineering notebook. I write things down h
 
 </div>
 
-## The short version
+## The Quantifiables
 
 <div class="grid cards" markdown>
 
@@ -31,13 +31,14 @@ This site is part portfolio and part engineering notebook. I write things down h
 
     ---
 
-    Kept healthy, upgraded, debugged, and occasionally talked down off a ledge.
+    Kept healthy, upgraded, debugged, and occasionally talked down off a ledge. Helped build some from scratch with kubeadm.
 
 -   :material-github:{ .lg .middle } **500+ repositories**
 
     ---
 
-    Moved to enterprise GitHub and taught to share the same GitHub Actions workflows.
+    Migrated from legacy SCMs to enterprise GitHub and taught to share the same GitHub Actions workflows.
+    Nobody likes their cheese moved! You can imagine how that went :laughing:
 
 -   :material-source-branch:{ .lg .middle } **100+ GitOps repositories**
 
@@ -49,7 +50,7 @@ This site is part portfolio and part engineering notebook. I write things down h
 
     ---
 
-    Supported across 10+ application teams, each with their own idea of "urgent".
+    Supported across 10+ application teams in production, each with their own idea of "urgent".
 
 </div>
 
